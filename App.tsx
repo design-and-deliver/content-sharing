@@ -8,6 +8,7 @@
 import React from 'react';
 import type {PropsWithChildren} from 'react';
 import {
+  Alert,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -17,13 +18,8 @@ import {
   View,
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
+import IntentHandler from './src/components/intent-handler/intent-handler';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -62,6 +58,10 @@ function App(): React.JSX.Element {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const handleNewIntent = (intent) => {
+    Alert.alert('New Intent Received', JSON.stringify(intent));
+  };
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar
@@ -76,20 +76,7 @@ function App(): React.JSX.Element {
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+          <IntentHandler onNewIntent={handleNewIntent} />
         </View>
       </ScrollView>
     </SafeAreaView>
