@@ -1,14 +1,6 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
+import React, {useState} from 'react';
 import type {PropsWithChildren} from 'react';
 import {
-  Alert,
   SafeAreaView,
   ScrollView,
   StatusBar,
@@ -20,6 +12,7 @@ import {
 
 import {Colors, Header} from 'react-native/Libraries/NewAppScreen';
 import IntentHandler from './src/components/intent-handler/intent-handler';
+import ShareBridge2 from './src/components/share-bridge-2/share-bridge-2';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -53,13 +46,15 @@ function Section({children, title}: SectionProps): React.JSX.Element {
 
 function App(): React.JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
+  const [intentData, setIntentData] = useState(null);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
   const handleNewIntent = (intent) => {
-    Alert.alert('New Intent Received', JSON.stringify(intent));
+    // setIntentData(intent);
+    console.log("INTENT = " + intent);
   };
 
   return (
@@ -77,6 +72,13 @@ function App(): React.JSX.Element {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
           <IntentHandler onNewIntent={handleNewIntent} />
+          {/* <ShareBridge2 /> */}
+          {intentData && (
+            <View style={styles.intentContainer}>
+              <Text style={styles.intentText}>New Intent Received:</Text>
+              <Text style={styles.intentText}>{JSON.stringify(intentData, null, 2)}</Text>
+            </View>
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -99,6 +101,18 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  intentContainer: {
+    marginTop: 32,
+    paddingHorizontal: 24,
+    backgroundColor: Colors.lighter,
+    borderRadius: 8,
+    padding: 16,
+  },
+  intentText: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: Colors.dark,
   },
 });
 

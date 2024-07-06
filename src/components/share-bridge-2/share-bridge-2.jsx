@@ -1,18 +1,28 @@
-// import React from 'react';
-// import {View, Text, StyleSheet} from 'react-native';
-// import useSharedText from './useSharedText';
+// import React, { useEffect, useState } from 'react';
+// import { View, Text, StyleSheet } from 'react-native';
 
 // const ShareBridge2 = () => {
-//   const {sharedText, error} = useSharedText();
+//   const [fileNames, setFileNames] = useState([]);
+
+//   useEffect(() => {
+//     const fileHandler = getFileHandler(); // Hypothetical function
+
+//     if (fileHandler && fileHandler.getFileNames) {
+//       setFileNames(fileHandler.getFileNames());
+//     } else {
+//       console.warn('fileHandler or getFileNames is not available');
+//     }
+//   }, []);
 
 //   return (
 //     <View style={styles.container}>
-//       {error ? (
-//         <Text style={styles.errorText}>Error: {error}</Text>
+//       <Text>Shared Files:</Text>
+//       {fileNames.length > 0 ? (
+//         fileNames.map((name, index) => (
+//           <Text key={index}>{name}</Text>
+//         ))
 //       ) : (
-//         <Text style={styles.sharedText}>
-//           {sharedText ? `Shared Text: ${sharedText}` : 'No shared text'}
-//         </Text>
+//         <Text>No files shared</Text>
 //       )}
 //     </View>
 //   );
@@ -20,18 +30,7 @@
 
 // const styles = StyleSheet.create({
 //   container: {
-//     flex: 1,
-//     justifyContent: 'center',
-//     alignItems: 'center',
 //     padding: 16,
-//   },
-//   sharedText: {
-//     fontSize: 16,
-//     color: '#333',
-//   },
-//   errorText: {
-//     fontSize: 16,
-//     color: 'red',
 //   },
 // });
 
